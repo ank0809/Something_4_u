@@ -201,8 +201,9 @@ button{
 
 <body>
 
-<audio id="bgMusic" autoplay loop muted>
-<source src="YOUR_GITHUB_RAW_MP3_LINK_HERE" type="audio/mpeg">
+<!-- UPDATED BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="https://raw.githubusercontent.com/ank0809/Valentine/ef63e0e79e66cacbf8d548255e1b93cc955d5a32/rhnuma_raone_srk.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -254,10 +255,10 @@ You did that to mine 💖
 <script>
 const music=document.getElementById("bgMusic");
 
+/* Auto play on first touch */
 window.onload=()=>{
-music.play().then(()=>{music.muted=false;}).catch(()=>{
+music.play().catch(()=>{
 document.body.addEventListener("click",()=>{
-music.muted=false;
 music.play();
 },{once:true});
 });
@@ -304,7 +305,7 @@ const msg3=[
 "You make sadness lighter,",
 "and happiness deeper.",
 "",
-"I feel lucky to have you and I louf u soo much 👑💖"
+"I feel lucky to have you 👑💖"
 ];
 
 function openPopup1(){
