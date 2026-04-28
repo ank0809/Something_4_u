@@ -142,7 +142,8 @@ button{
   top:8px;
 }
 
-#popup{
+/* POPUPS */
+.popup{
   display:none;
   position:fixed;
   inset:0;
@@ -168,19 +169,19 @@ button{
 
 .popup-box h2{
   font-family:'Sacramento',cursive;
-  font-size:2.5em;
+  font-size:2.4em;
   color:#ff4d88;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
-#typedText{
+.textBox{
   white-space:pre-line;
   color:#333;
   line-height:1.7;
   min-height:220px;
 }
 
-.closeBtn{
+.nextBtn{
   margin-top:15px;
   background:#ff6fa6;
 }
@@ -200,9 +201,8 @@ button{
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" autoplay loop muted>
-  <source src="YOUR_GITHUB_RAW_MP3_LINK_HERE" type="audio/mpeg">
+<source src="YOUR_GITHUB_RAW_MP3_LINK_HERE" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -218,53 +218,57 @@ You did that to mine 💖
 </p>
 
 <div class="btn-wrap">
-<button onclick="openPopup(1)">Your Eyes 👀</button>
-<button onclick="openPopup(2)">Your Beauty 🌸</button>
-<button onclick="openPopup(3)">My Heart 💖</button>
-<button class="music" onclick="toggleMusic()">Music 🎵</button>
+<button onclick="openPopup1()">Your Eyes 👀</button>
+<button onclick="toggleMusic()" class="music">Music 🎵</button>
 </div>
 
 </div>
 
-<div id="popup">
+<!-- POPUP 1 -->
+<div class="popup" id="popup1">
 <div class="popup-box">
-<h2 id="title">For You 💌</h2>
-<div id="typedText"></div>
-<button class="closeBtn" onclick="closePopup()">Always Yours 💖</button>
+<h2>Your Eyes 👀</h2>
+<div class="textBox" id="text1"></div>
+<button class="nextBtn" onclick="goToPopup2()">Next ➜</button>
+</div>
+</div>
+
+<!-- POPUP 2 -->
+<div class="popup" id="popup2">
+<div class="popup-box">
+<h2>Your Beauty 🌸</h2>
+<div class="textBox" id="text2"></div>
+<button class="nextBtn" onclick="goToPopup3()">Next ➜</button>
+</div>
+</div>
+
+<!-- POPUP 3 -->
+<div class="popup" id="popup3">
+<div class="popup-box">
+<h2>My Heart 💖</h2>
+<div class="textBox" id="text3"></div>
+<button class="nextBtn" onclick="closeAll()">Always Yours 💖</button>
 </div>
 </div>
 
 <script>
-const popup = document.getElementById("popup");
-const typedText = document.getElementById("typedText");
-const title = document.getElementById("title");
-const music = document.getElementById("bgMusic");
+const music=document.getElementById("bgMusic");
 
-/* autoplay fix */
-window.onload = () => {
-  music.play().then(()=>{
-    music.muted = false;
-  }).catch(()=>{
-    document.body.addEventListener("click", ()=>{
-      music.muted = false;
-      music.play();
-    }, {once:true});
-  });
+window.onload=()=>{
+music.play().then(()=>{music.muted=false;}).catch(()=>{
+document.body.addEventListener("click",()=>{
+music.muted=false;
+music.play();
+},{once:true});
+});
 };
 
 function toggleMusic(){
-  if(music.paused){
-    music.play();
-  }else{
-    music.pause();
-  }
+if(music.paused){music.play();}
+else{music.pause();}
 }
 
-/* FIXED TEXT ARRAYS - NO JUMBLED CHARACTERS */
-const messages = {
-1:{
-title:"Your Eyes 👀",
-lines:[
+const msg1=[
 "Your eyes...",
 "",
 "They hold peace",
@@ -273,17 +277,11 @@ lines:[
 "One look from you,",
 "and my whole day becomes softer.",
 "",
-"Sometimes I think",
-"stars borrowed their shine from them ✨",
-"",
-"And when you look at me...",
-"my heart forgets everything else 💖"
-]
-},
+"Stars borrowed",
+"their shine from them ✨"
+];
 
-2:{
-title:"Your Beauty 🌸",
-lines:[
+const msg2=[
 "Your smile...",
 "",
 "It feels like sunshine",
@@ -294,113 +292,105 @@ lines:[
 "your little reactions...",
 "",
 "Everything about you",
-"is naturally beautiful.",
-"",
-"You are not just pretty...",
-"",
-"You are the kind of beauty",
-"that stays in someone's heart forever 🤍"
-]
-},
+"is beautiful 🌸"
+];
 
-3:{
-title:"My Heart 💖",
-lines:[
+const msg3=[
 "You are so important to me...",
 "",
 "Since you came into my life,",
 "normal days became special.",
 "",
 "You make sadness lighter,",
-"silence warmer,",
 "and happiness deeper.",
 "",
-"I feel lucky to have you.",
-"",
-"If life became beautiful suddenly...",
-"",
-"It's because you are in it 👑💖"
-]
-}
-};
+"I feel lucky to have you 👑💖"
+];
 
-function openPopup(num){
-  popup.style.display="flex";
-  title.textContent = messages[num].title;
-  startTyping(messages[num].lines);
-  heartExplosion();
+function openPopup1(){
+document.getElementById("popup1").style.display="flex";
+typeLines("text1",msg1);
+heartExplosion();
 }
 
-function closePopup(){
-  popup.style.display="none";
-  typedText.innerHTML="";
+function goToPopup2(){
+document.getElementById("popup1").style.display="none";
+document.getElementById("popup2").style.display="flex";
+typeLines("text2",msg2);
+heartExplosion();
 }
 
-/* FIXED TYPING EFFECT */
-function startTyping(lines){
-  typedText.innerHTML="";
-  let lineIndex = 0;
-
-  function typeLine(){
-    if(lineIndex >= lines.length) return;
-
-    const div = document.createElement("div");
-    typedText.appendChild(div);
-
-    let text = lines[lineIndex];
-    let charIndex = 0;
-
-    const charTimer = setInterval(()=>{
-      if(charIndex < text.length){
-        div.textContent += text.charAt(charIndex);
-        charIndex++;
-        typedText.parentElement.scrollTop =
-          typedText.parentElement.scrollHeight;
-      }else{
-        clearInterval(charTimer);
-        lineIndex++;
-        setTimeout(typeLine, 250);
-      }
-    },28);
-  }
-
-  typeLine();
+function goToPopup3(){
+document.getElementById("popup2").style.display="none";
+document.getElementById("popup3").style.display="flex";
+typeLines("text3",msg3);
+heartExplosion();
 }
 
-/* hearts */
+function closeAll(){
+document.getElementById("popup3").style.display="none";
+}
+
+function typeLines(id,arr){
+const box=document.getElementById(id);
+box.innerHTML="";
+let i=0;
+
+function nextLine(){
+if(i>=arr.length)return;
+
+const div=document.createElement("div");
+box.appendChild(div);
+
+let txt=arr[i];
+let j=0;
+
+const timer=setInterval(()=>{
+if(j<txt.length){
+div.textContent+=txt.charAt(j);
+j++;
+}else{
+clearInterval(timer);
+i++;
+setTimeout(nextLine,220);
+}
+},28);
+}
+
+nextLine();
+}
+
 setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(4+Math.random()*3)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7000);
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
 },450);
 
-/* sparkles */
 setInterval(()=>{
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=(5+Math.random()*5)+"s";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),10000);
+const s=document.createElement("div");
+s.className="sparkle";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),10000);
 },350);
 
-/* burst */
 function heartExplosion(){
-  for(let i=0;i<18;i++){
-    const b=document.createElement("div");
-    b.className="burst";
-    b.innerHTML="💖";
-    b.style.left="50%";
-    b.style.top="50%";
-    b.style.setProperty("--x",(Math.random()*300-150)+"px");
-    b.style.setProperty("--y",(Math.random()*300-150)+"px");
-    document.body.appendChild(b);
-    setTimeout(()=>b.remove(),1200);
-  }
+for(let i=0;i<18;i++){
+const b=document.createElement("div");
+b.className="burst";
+b.innerHTML="💖";
+b.style.left="50%";
+b.style.top="50%";
+b.style.setProperty("--x",(Math.random()*300-150)+"px");
+b.style.setProperty("--y",(Math.random()*300-150)+"px");
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),1200);
+}
 }
 </script>
 
