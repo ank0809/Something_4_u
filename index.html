@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Beautiful Girl 💖</title>
+<title>For My Royal Princess 👑💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -18,13 +18,13 @@ body{
   height:100vh;
   overflow:hidden;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+  background:linear-gradient(-45deg,#ff4d6d,#ff8fab,#ffc2d1,#ffd6e0,#fbc2eb);
   background-size:400% 400%;
   animation:bgMove 12s ease infinite;
   display:flex;
   justify-content:center;
   align-items:center;
-  color:white;
+  position:relative;
 }
 
 @keyframes bgMove{
@@ -33,39 +33,133 @@ body{
   100%{background-position:0% 50%;}
 }
 
+/* Golden sparkles */
+.sparkle{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:gold;
+  box-shadow:0 0 12px gold;
+  animation:fall linear infinite;
+  z-index:0;
+}
+
+@keyframes fall{
+  from{transform:translateY(-10vh);opacity:1;}
+  to{transform:translateY(110vh);opacity:0;}
+}
+
+/* Floating hearts */
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation:rise linear infinite;
+  z-index:0;
+}
+
+@keyframes rise{
+  from{transform:translateY(100vh) scale(.7);opacity:1;}
+  to{transform:translateY(-10vh) scale(1.3);opacity:0;}
+}
+
 .card{
+  position:relative;
+  z-index:2;
   width:92%;
   max-width:430px;
-  background:rgba(255,255,255,0.18);
+  background:rgba(255,255,255,.18);
   backdrop-filter:blur(12px);
   border-radius:28px;
-  padding:35px 28px;
+  padding:35px 24px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
 }
 
 h1{
   font-family:'Sacramento',cursive;
-  font-size:3.1em;
-  margin-bottom:10px;
+  font-size:3.2em;
+  color:#fff;
+  margin-bottom:8px;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
 }
 
 .sub{
-  font-size:1.08em;
+  color:#fff;
   line-height:1.6;
   margin-bottom:22px;
+  font-size:1.02em;
+}
+
+.btn-wrap{
+  display:grid;
+  gap:10px;
 }
 
 button{
   border:none;
-  padding:14px 28px;
-  border-radius:50px;
-  font-size:1em;
   cursor:pointer;
+  padding:14px 20px;
+  border-radius:50px;
   background:#ff4d88;
-  color:white;
+  color:#fff;
+  font-size:1em;
+  transition:.3s;
 }
 
+button:hover{
+  transform:scale(1.05);
+}
+
+.music{
+  background:#a855f7;
+}
+
+/* Envelope */
+.envelope{
+  width:90px;
+  height:60px;
+  background:#fff;
+  margin:0 auto 18px;
+  position:relative;
+  border-radius:8px;
+  animation:floaty 2.5s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+.envelope:before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:0;
+  height:0;
+  border-left:45px solid transparent;
+  border-right:45px solid transparent;
+  border-top:30px solid #ffd6e0;
+}
+
+.envelope:after{
+  content:'💌';
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:26px;
+  top:8px;
+}
+
+/* Popup */
 #popup{
   display:none;
   position:fixed;
@@ -78,27 +172,16 @@ button{
   padding:15px;
 }
 
-/* FIXED POPUP SIZE + SCROLL */
 .popup-box{
   width:100%;
   max-width:430px;
   max-height:88vh;
   overflow-y:auto;
   background:white;
-  color:#333;
-  padding:26px 22px;
   border-radius:24px;
+  padding:28px 22px;
   text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
-}
-
-/* nice scrollbar */
-.popup-box::-webkit-scrollbar{
-  width:6px;
-}
-.popup-box::-webkit-scrollbar-thumb{
-  background:#ff9ac0;
-  border-radius:10px;
+  box-shadow:0 0 25px rgba(255,105,180,.45);
 }
 
 .popup-box h2{
@@ -106,168 +189,213 @@ button{
   font-size:2.5em;
   color:#ff4d88;
   margin-bottom:10px;
-  position:sticky;
-  top:0;
-  background:white;
-  padding-bottom:8px;
 }
 
 #typedText{
   white-space:pre-line;
+  color:#333;
   line-height:1.7;
   font-size:.98em;
-  text-align:center;
-  padding-bottom:10px;
+  min-height:220px;
 }
 
 .closeBtn{
   margin-top:15px;
   background:#ff6fa6;
-  position:sticky;
-  bottom:0;
 }
 
-.heart{
+/* Heart burst */
+.burst{
   position:absolute;
   font-size:20px;
-  animation:rise 6s linear infinite;
+  animation:burst 1.2s forwards;
+  pointer-events:none;
+  z-index:20;
 }
 
-@keyframes rise{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);opacity:0;}
-}
-
-.sparkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:gold;
-  box-shadow:0 0 10px gold;
-  animation:fall 8s linear infinite;
-}
-
-@keyframes fall{
-  from{transform:translateY(-10vh);}
-  to{transform:translateY(110vh);opacity:0;}
+@keyframes burst{
+  from{
+    transform:translate(0,0) scale(.5);
+    opacity:1;
+  }
+  to{
+    transform:translate(var(--x),var(--y)) scale(1.6);
+    opacity:0;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- SONG -->
+<audio id="bgMusic" loop>
+<source src="https://raw.githubusercontent.com/ank0809/Rose-day/db84e1f74fdef01c0b62ff2576ba8055b5e57e6e/Mere%20Naam%20Tu%20Instrumental%20Ringtone%20Download%20Pagalworld%20(mp3cut.net).mp3" type="audio/mpeg">
+</audio>
+
 <div class="card">
-  <h1>For My Favorite Person 💖</h1>
-  <p class="sub">
-    There are some people who make life beautiful...  
-    and then there is <b>you</b> ✨
-  </p>
-  <button onclick="openPopup()">Open My Heart 💌</button>
+
+<div class="envelope"></div>
+
+<h1>My Royal Princess 👑</h1>
+
+<p class="sub">
+Some people enter life...  
+and turn everything into magic ✨  
+You did that to mine 💖
+</p>
+
+<div class="btn-wrap">
+<button onclick="openPopup(1)">Your Eyes 👀</button>
+<button onclick="openPopup(2)">Your Beauty 🌸</button>
+<button onclick="openPopup(3)">My Heart 💖</button>
+<button class="music" onclick="toggleMusic()">Music 🎵</button>
 </div>
 
+</div>
+
+<!-- POPUP -->
 <div id="popup">
-  <div class="popup-box">
-    <h2>About You 🤍</h2>
-    <div id="typedText"></div>
-    <button class="closeBtn" onclick="closePopup()">Always Yours 💖</button>
-  </div>
+<div class="popup-box">
+<h2 id="title">For You 💌</h2>
+<div id="typedText"></div>
+<button class="closeBtn" onclick="closePopup()">Always Yours 💖</button>
+</div>
 </div>
 
 <script>
-const popup = document.getElementById("popup");
-const typedText = document.getElementById("typedText");
+const popup=document.getElementById("popup");
+const typedText=document.getElementById("typedText");
+const title=document.getElementById("title");
+const music=document.getElementById("bgMusic");
 
-const message =
-`Your eyes...
+document.body.addEventListener("click",()=>{
+music.play().catch(()=>{});
+},{once:true});
 
-They hold a softness
-that calms every storm inside me.
+function toggleMusic(){
+if(music.paused){
+music.play();
+}else{
+music.pause();
+}
+}
+
+const messages={
+1:{
+title:"Your Eyes 👀",
+text:`Your eyes...
+
+They hold peace
+that no place can give me.
+
 One look from you,
-and somehow the whole world feels lighter ✨
+and my whole day becomes softer.
 
-Your smile...
+Sometimes I think
+stars borrowed their shine from them ✨
 
-It is dangerous in the best way,
-because every time you smile,
-my heart forgets how to behave 🤍
+And when you look at me...
+my heart forgets everything else 💖`
+},
 
-Your expressions...
+2:{
+title:"Your Beauty 🌸",
+text:`Your smile...
 
-Even without words,
-your face tells stories
-I could watch forever.
+It feels like sunshine
+after the longest rain.
 
-And you...
+Your expressions,
+your laugh,
+your little reactions...
 
-You are more important to me
-than I can ever explain.
+Everything about you
+is naturally beautiful.
 
-You make ordinary days feel special,
-silent moments feel warm,
-and life feel worth smiling for.
+You are not just pretty...
+
+You are the kind of beauty
+that stays in someone's heart forever 🤍`
+},
+
+3:{
+title:"My Heart 💖",
+text:`You are so important to me...
 
 Since you came into my life,
-everything feels brighter,
-gentler,
-more beautiful.
+normal days became special.
+
+You make sadness lighter,
+silence warmer,
+and happiness deeper.
 
 I feel lucky to have you.
-I feel peaceful with you.
-I feel happy because of you.
 
-If anyone asks me
-what beauty looks like...
+If life became beautiful suddenly...
 
-I would simply show them you 💖`;
+It's because you are in it 👑💖`
+}
+};
 
-function openPopup(){
-  popup.style.display="flex";
-  startTyping();
+function openPopup(num){
+popup.style.display="flex";
+typedText.textContent="";
+title.textContent=messages[num].title;
+startTyping(messages[num].text);
+heartExplosion();
 }
 
 function closePopup(){
-  popup.style.display="none";
-  typedText.textContent="";
+popup.style.display="none";
+typedText.textContent="";
 }
 
-function startTyping(){
-  typedText.textContent="";
-  let i=0;
-
-  const type=setInterval(()=>{
-    typedText.textContent += message[i];
-    i++;
-
-    /* auto scroll while typing */
-    typedText.parentElement.scrollTop = typedText.parentElement.scrollHeight;
-
-    if(i>=message.length){
-      clearInterval(type);
-    }
-  },28);
+function startTyping(text){
+let i=0;
+const type=setInterval(()=>{
+typedText.textContent+=text[i];
+i++;
+typedText.parentElement.scrollTop=typedText.parentElement.scrollHeight;
+if(i>=text.length) clearInterval(type);
+},28);
 }
 
-/* hearts */
+/* Background floating hearts */
 setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(4+Math.random()*3)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7000);
-},500);
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
+},450);
 
-/* sparkles */
+/* Sparkles */
 setInterval(()=>{
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=(5+Math.random()*4)+"s";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),9000);
+const s=document.createElement("div");
+s.className="sparkle";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),10000);
 },350);
+
+/* Hearts explosion */
+function heartExplosion(){
+for(let i=0;i<18;i++){
+const b=document.createElement("div");
+b.className="burst";
+b.innerHTML="💖";
+b.style.left="50%";
+b.style.top="50%";
+b.style.setProperty("--x",(Math.random()*300-150)+"px");
+b.style.setProperty("--y",(Math.random()*300-150)+"px");
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),1200);
+}
+}
 </script>
 
 </body>
