@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Queenieeee 👑💖</title>
+<title>For My Royal Princess 👑💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -200,9 +200,8 @@ button{
 
 <body>
 
-<!-- AUTOPLAY MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" autoplay loop muted>
-  <!-- Replace this with your GitHub RAW link -->
   <source src="YOUR_GITHUB_RAW_MP3_LINK_HERE" type="audio/mpeg">
 </audio>
 
@@ -213,8 +212,8 @@ button{
 <h1>My Royal Princess 👑</h1>
 
 <p class="sub">
-Some people enter life...  
-and turn everything into magic ✨  
+Some people enter life...<br>
+and turn everything into magic ✨<br>
 You did that to mine 💖
 </p>
 
@@ -236,17 +235,17 @@ You did that to mine 💖
 </div>
 
 <script>
-const popup=document.getElementById("popup");
-const typedText=document.getElementById("typedText");
-const title=document.getElementById("title");
-const music=document.getElementById("bgMusic");
+const popup = document.getElementById("popup");
+const typedText = document.getElementById("typedText");
+const title = document.getElementById("title");
+const music = document.getElementById("bgMusic");
 
-/* Force autoplay on page open */
+/* autoplay fix */
 window.onload = () => {
   music.play().then(()=>{
     music.muted = false;
   }).catch(()=>{
-    document.body.addEventListener("click", () => {
+    document.body.addEventListener("click", ()=>{
       music.muted = false;
       music.play();
     }, {once:true});
@@ -261,117 +260,147 @@ function toggleMusic(){
   }
 }
 
-const messages={
+/* FIXED TEXT ARRAYS - NO JUMBLED CHARACTERS */
+const messages = {
 1:{
 title:"Your Eyes 👀",
-text:`Your eyes...
-
-They hold peace
-that no place can give me.
-
-One look from you,
-and my whole day becomes softer.
-
-Sometimes I think
-stars borrowed their shine from them ✨
-
-And when you look at me...
-my heart forgets everything else 💖`
+lines:[
+"Your eyes...",
+"",
+"They hold peace",
+"that no place can give me.",
+"",
+"One look from you,",
+"and my whole day becomes softer.",
+"",
+"Sometimes I think",
+"stars borrowed their shine from them ✨",
+"",
+"And when you look at me...",
+"my heart forgets everything else 💖"
+]
 },
 
 2:{
 title:"Your Beauty 🌸",
-text:`Your smile...
-
-It feels like sunshine
-after the longest rain.
-
-Your expressions,
-your laugh,
-your little reactions...
-
-Everything about you
-is naturally beautiful.
-
-You are not just pretty...
-
-You are the kind of beauty
-that stays in my heart forever 🤍`
+lines:[
+"Your smile...",
+"",
+"It feels like sunshine",
+"after the longest rain.",
+"",
+"Your expressions,",
+"your laugh,",
+"your little reactions...",
+"",
+"Everything about you",
+"is naturally beautiful.",
+"",
+"You are not just pretty...",
+"",
+"You are the kind of beauty",
+"that stays in someone's heart forever 🤍"
+]
 },
 
 3:{
 title:"My Heart 💖",
-text:`You are so important to me...
-
-Since you came into my life,
-normal days became special.
-
-You make sadness lighter,
-silence warmer,
-and happiness deeper.
-
-I feel lucky to have you.
-
-If life became beautiful suddenly...
-
-It's because you are in it 👑💖`
+lines:[
+"You are so important to me...",
+"",
+"Since you came into my life,",
+"normal days became special.",
+"",
+"You make sadness lighter,",
+"silence warmer,",
+"and happiness deeper.",
+"",
+"I feel lucky to have you.",
+"",
+"If life became beautiful suddenly...",
+"",
+"It's because you are in it 👑💖"
+]
 }
 };
 
 function openPopup(num){
-popup.style.display="flex";
-typedText.textContent="";
-title.textContent=messages[num].title;
-startTyping(messages[num].text);
-heartExplosion();
+  popup.style.display="flex";
+  title.textContent = messages[num].title;
+  startTyping(messages[num].lines);
+  heartExplosion();
 }
 
 function closePopup(){
-popup.style.display="none";
-typedText.textContent="";
+  popup.style.display="none";
+  typedText.innerHTML="";
 }
 
-function startTyping(text){
-let i=0;
-const type=setInterval(()=>{
-typedText.textContent+=text[i];
-i++;
-typedText.parentElement.scrollTop=typedText.parentElement.scrollHeight;
-if(i>=text.length) clearInterval(type);
-},28);
+/* FIXED TYPING EFFECT */
+function startTyping(lines){
+  typedText.innerHTML="";
+  let lineIndex = 0;
+
+  function typeLine(){
+    if(lineIndex >= lines.length) return;
+
+    const div = document.createElement("div");
+    typedText.appendChild(div);
+
+    let text = lines[lineIndex];
+    let charIndex = 0;
+
+    const charTimer = setInterval(()=>{
+      if(charIndex < text.length){
+        div.textContent += text.charAt(charIndex);
+        charIndex++;
+        typedText.parentElement.scrollTop =
+          typedText.parentElement.scrollHeight;
+      }else{
+        clearInterval(charTimer);
+        lineIndex++;
+        setTimeout(typeLine, 250);
+      }
+    },28);
+  }
+
+  typeLine();
 }
 
+/* hearts */
 setInterval(()=>{
-const h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(4+Math.random()*3)+"s";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),7000);
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(4+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
 },450);
 
+/* sparkles */
 setInterval(()=>{
-const s=document.createElement("div");
-s.className="sparkle";
-s.style.left=Math.random()*100+"vw";
-s.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),10000);
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),10000);
 },350);
 
+/* burst */
 function heartExplosion(){
-for(let i=0;i<18;i++){
-const b=document.createElement("div");
-b.className="burst";
-b.innerHTML="💖";
-b.style.left="50%";
-b.style.top="50%";
-b.style.setProperty("--x",(Math.random()*300-150)+"px");
-b.style.setProperty("--y",(Math.random()*300-150)+"px");
-document.body.appendChild(b);
-setTimeout(()=>b.remove(),1200);
-}
+  for(let i=0;i<18;i++){
+    const b=document.createElement("div");
+    b.className="burst";
+    b.innerHTML="💖";
+    b.style.left="50%";
+    b.style.top="50%";
+    b.style.setProperty("--x",(Math.random()*300-150)+"px");
+    b.style.setProperty("--y",(Math.random()*300-150)+"px");
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
 }
 </script>
 
