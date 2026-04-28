@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For you Queenieeee 👑💖</title>
+<title>For My Queenieeee 👑💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -33,7 +33,6 @@ body{
   100%{background-position:0% 50%;}
 }
 
-/* Golden sparkles */
 .sparkle{
   position:absolute;
   width:5px;
@@ -42,7 +41,6 @@ body{
   background:gold;
   box-shadow:0 0 12px gold;
   animation:fall linear infinite;
-  z-index:0;
 }
 
 @keyframes fall{
@@ -50,12 +48,10 @@ body{
   to{transform:translateY(110vh);opacity:0;}
 }
 
-/* Floating hearts */
 .heart{
   position:absolute;
   font-size:18px;
   animation:rise linear infinite;
-  z-index:0;
 }
 
 @keyframes rise{
@@ -81,19 +77,12 @@ h1{
   font-size:3.2em;
   color:#fff;
   margin-bottom:8px;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.05);}
 }
 
 .sub{
   color:#fff;
   line-height:1.6;
   margin-bottom:22px;
-  font-size:1.02em;
 }
 
 .btn-wrap{
@@ -109,18 +98,12 @@ button{
   background:#ff4d88;
   color:#fff;
   font-size:1em;
-  transition:.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
 }
 
 .music{
-  background:#a855f7;
+  background:#9b5de5;
 }
 
-/* Envelope */
 .envelope{
   width:90px;
   height:60px;
@@ -159,7 +142,6 @@ button:hover{
   top:8px;
 }
 
-/* Popup */
 #popup{
   display:none;
   position:fixed;
@@ -195,7 +177,6 @@ button:hover{
   white-space:pre-line;
   color:#333;
   line-height:1.7;
-  font-size:.98em;
   min-height:220px;
 }
 
@@ -204,33 +185,25 @@ button:hover{
   background:#ff6fa6;
 }
 
-/* Heart burst */
 .burst{
   position:absolute;
   font-size:20px;
   animation:burst 1.2s forwards;
-  pointer-events:none;
-  z-index:20;
 }
 
 @keyframes burst{
-  from{
-    transform:translate(0,0) scale(.5);
-    opacity:1;
-  }
-  to{
-    transform:translate(var(--x),var(--y)) scale(1.6);
-    opacity:0;
-  }
+  from{transform:translate(0,0) scale(.5);opacity:1;}
+  to{transform:translate(var(--x),var(--y)) scale(1.6);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- SONG -->
-<audio id="bgMusic" loop>
-<source src="https://raw.githubusercontent.com/ank0809/Rose-day/db84e1f74fdef01c0b62ff2576ba8055b5e57e6e/Mere%20Naam%20Tu%20Instrumental%20Ringtone%20Download%20Pagalworld%20(mp3cut.net).mp3" type="audio/mpeg">
+<!-- AUTOPLAY MUSIC -->
+<audio id="bgMusic" autoplay loop muted>
+  <!-- Replace this with your GitHub RAW link -->
+  <source src="YOUR_GITHUB_RAW_MP3_LINK_HERE" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -254,7 +227,6 @@ You did that to mine 💖
 
 </div>
 
-<!-- POPUP -->
 <div id="popup">
 <div class="popup-box">
 <h2 id="title">For You 💌</h2>
@@ -269,16 +241,24 @@ const typedText=document.getElementById("typedText");
 const title=document.getElementById("title");
 const music=document.getElementById("bgMusic");
 
-document.body.addEventListener("click",()=>{
-music.play().catch(()=>{});
-},{once:true});
+/* Force autoplay on page open */
+window.onload = () => {
+  music.play().then(()=>{
+    music.muted = false;
+  }).catch(()=>{
+    document.body.addEventListener("click", () => {
+      music.muted = false;
+      music.play();
+    }, {once:true});
+  });
+};
 
 function toggleMusic(){
-if(music.paused){
-music.play();
-}else{
-music.pause();
-}
+  if(music.paused){
+    music.play();
+  }else{
+    music.pause();
+  }
 }
 
 const messages={
@@ -361,7 +341,6 @@ if(i>=text.length) clearInterval(type);
 },28);
 }
 
-/* Background floating hearts */
 setInterval(()=>{
 const h=document.createElement("div");
 h.className="heart";
@@ -372,7 +351,6 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),7000);
 },450);
 
-/* Sparkles */
 setInterval(()=>{
 const s=document.createElement("div");
 s.className="sparkle";
@@ -382,7 +360,6 @@ document.body.appendChild(s);
 setTimeout(()=>s.remove(),10000);
 },350);
 
-/* Hearts explosion */
 function heartExplosion(){
 for(let i=0;i<18;i++){
 const b=document.createElement("div");
